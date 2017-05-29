@@ -50,44 +50,36 @@ public class Labirinto extends GraphicApplication {
 			linha[i] = scanner.next();
 			String aux[] = linha[i].split(";");
 			for (int b=0; b < aux.length ; b ++) {
-				
 				char [] letras = aux[b].toCharArray();
 				
 				if (letras[0] == 'r'){	
 					aux[b] = aux[b].replace("room ", "");
 					room = Double.parseDouble(aux[b]);	
 				}
-				
 				if (letras[0] == 'e'){	
 					aux[b] = aux[b].replace("east ", "");
 					east = Double.parseDouble(aux[b]);	
-				}
-					
+				}	
 				if (letras[0] == 'w'){	
 					aux[b] = aux[b].replace("west ", "");
 					west = Double.parseDouble(aux[b]);	
-				}
-					
+				}	
 				if (letras[0] == 'n'){	
 					aux[b] = aux[b].replace("north ", "");
 					north = Double.parseDouble(aux[b]);	
-				}
-					
+				}	
 				if (letras[0] == 's'){	
 					aux[b] = aux[b].replace("south ", "");
 					south = Double.parseDouble(aux[b]);	
-				}
-					
+				}	
 				if (letras[0] == 'd'){	
 					aux[b] = aux[b].replace("down ", "");
 					down = Double.parseDouble(aux[b]);	
 				}
-				
 				if (letras[0] == 'u'){	
 					aux[b] = aux[b].replace("up ", "");
 					up = Double.parseDouble(aux[b]);	
-				}
-					
+				}	
 			}
 			sala[i] = new Room (room, east, west, north,  south, down, up);
 			i++;			
