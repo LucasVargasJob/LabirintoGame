@@ -1,13 +1,7 @@
 
 public class Room {
 	
-	double room = 0;
-	double east = 0;
-	double west = 0;
-	double north = 0;
-	double south = 0;
-	double down = 0;
-	double up = 0;
+	double room, east, west, north, south, down, up ;
 	
 	public Room ( double room, double east, double west, double north, double south, double down, double up){
 		this.room = room;
