@@ -19,19 +19,16 @@ public class Room {
 		this.up = up;
 	}
 	
-	
 	public String toString(){
-		return "Sala "+room+" "+
-				"south: " + south+ " "+
-				"east: "+east+ " "+
-				"west: "+ west+ " "+
-				"north: "+north+ " "+
-				"south: "+south+ " "+
-				"down: "+ down+ " "+
-				"up: "+ up + " ";
-		
+		return
+			"Sala "+room+" "+
+			"south: " + south+ " "+
+			"east: "+east+ " "+
+			"west: "+ west+ " "+
+			"north: "+north+ " "+
+			"south: "+south+ " "+
+			"down: "+ down+ " "+
+			"up: "+ up + " ";
 	}
 	
-	
-
 }

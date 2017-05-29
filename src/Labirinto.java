@@ -30,7 +30,6 @@ public class Labirinto extends GraphicApplication {
 		
 	}
 
-
 	
 	//METODOS -----------------------------------------------------------------------------------------------------------
 	
@@ -93,25 +92,8 @@ public class Labirinto extends GraphicApplication {
 			sala[i] = new Room (room, east, west, north,  south, down, up);
 			i++;			
 		}
-				
-
-}
+		
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
