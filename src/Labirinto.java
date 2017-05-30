@@ -38,7 +38,6 @@ public class Labirinto extends GraphicApplication {
 		String[] linha = new String[31];
 		Scanner scanner = null;
 		int i = 0;
-		double room=0, east=0, west=0, north=0, south=0, down=0, up=0;
 		
 		try {
 			scanner = new Scanner (new FileReader("Labirinto.txt")).useDelimiter("\n");
@@ -47,6 +46,7 @@ public class Labirinto extends GraphicApplication {
 		}
 		
 		while (scanner.hasNext()) {
+			String room = null, east=null, west=null, north=null, south=null, down=null, up=null;
 			linha[i] = scanner.next();
 			String aux[] = linha[i].split(";");
 			for (int b=0; b < aux.length ; b ++) {
@@ -54,37 +54,36 @@ public class Labirinto extends GraphicApplication {
 				
 				if (letras[0] == 'r'){	
 					aux[b] = aux[b].replace("room ", "");
-					room = Double.parseDouble(aux[b]);	
+					room = aux[b];	
 				}
 				if (letras[0] == 'e'){	
 					aux[b] = aux[b].replace("east ", "");
-					east = Double.parseDouble(aux[b]);	
+					east = aux[b];	
 				}	
 				if (letras[0] == 'w'){	
 					aux[b] = aux[b].replace("west ", "");
-					west = Double.parseDouble(aux[b]);	
+					west = aux[b];	
 				}	
 				if (letras[0] == 'n'){	
 					aux[b] = aux[b].replace("north ", "");
-					north = Double.parseDouble(aux[b]);	
+					north = aux[b];	
 				}	
 				if (letras[0] == 's'){	
 					aux[b] = aux[b].replace("south ", "");
-					south = Double.parseDouble(aux[b]);	
+					south = aux[b];	
 				}	
 				if (letras[0] == 'd'){	
 					aux[b] = aux[b].replace("down ", "");
-					down = Double.parseDouble(aux[b]);	
+					down = aux[b];	
 				}
 				if (letras[0] == 'u'){	
 					aux[b] = aux[b].replace("up ", "");
-					up = Double.parseDouble(aux[b]);	
+					up = aux[b];	
 				}	
 			}
 			sala[i] = new Room (room, east, west, north,  south, down, up);
 			i++;			
 		}
-		
 	}
 	
 	

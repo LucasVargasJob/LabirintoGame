@@ -1,9 +1,9 @@
 
 public class Room {
 	
-	double room, east, west, north, south, down, up ;
+	String room, east, west, north, south, down, up;
 	
-	public Room ( double room, double east, double west, double north, double south, double down, double up){
+	public Room ( String room, String east, String west, String north, String south, String down, String up){
 		this.room = room;
 		this.east = east;
 		this.west = west;
@@ -12,17 +12,6 @@ public class Room {
 		this.down = down;
 		this.up = up;
 	}
-	
-	public String toString(){
-		return
-			"Sala "+room+" "+
-			"south: " + south+ " "+
-			"east: "+east+ " "+
-			"west: "+ west+ " "+
-			"north: "+north+ " "+
-			"south: "+south+ " "+
-			"down: "+ down+ " "+
-			"up: "+ up + " ";
-	}
+
 	
 }
