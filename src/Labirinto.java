@@ -4,18 +4,23 @@ import java.util.Scanner;
 import com.senac.SimpleJava.Console;
 import com.senac.SimpleJava.Graphics.Canvas;
 import com.senac.SimpleJava.Graphics.GraphicApplication;
+import com.senac.SimpleJava.Graphics.Point;
 import com.senac.SimpleJava.Graphics.Resolution;
+import com.senac.SimpleJava.Graphics.events.MouseEvent;
+import com.senac.SimpleJava.Graphics.events.MouseObserver;
 
-public class Labirinto extends GraphicApplication {
+public class Labirinto extends GraphicApplication implements MouseObserver {
 	Room sala[] = new Room [31];
-	
+	int cont = 0;
 	
 	
 	@Override
 	protected void draw(Canvas canvas) {
-		int cont = 8;
+		canvas.clear();
+		
 		canvas.drawImage(sala[cont].fundo, 0, 0);
 		canvas.drawImage(sala[cont].warrior.img,200,220);
+		canvas.putText(400, 200, 20, String.format("Sala "+sala[cont].room));
 		
 		if(sala[cont].DoorEast != null){
 			canvas.drawImage(sala[cont].DoorEast.img, 707, 250);
@@ -30,7 +35,6 @@ public class Labirinto extends GraphicApplication {
 			canvas.drawImage(sala[cont].DoorSouth.img, 350, 510);
 		}
 		
-		
 	}
 	
 	@Override
@@ -39,18 +43,26 @@ public class Labirinto extends GraphicApplication {
 		this.setResolution(res);
 		this.setFramesPerSecond(30);
 		carregaArquivo();
+		addMouseObserver(MouseEvent.CLICK, this);
 		
 		
 	}
 
 	@Override
 	protected void loop() {
-	
-		
+		redraw();
 	}
 
 	
 	//METODOS -----------------------------------------------------------------------------------------------------------
+	
+	@Override
+	public void notify(MouseEvent event, int button, Point point) {
+		if (event == MouseEvent.CLICK) {
+			cont++;
+		}
+		
+	}
 	
 	public void carregaArquivo (){
 		String[] linha = new String[31];

@@ -1,8 +1,9 @@
 import java.io.IOException;
 
 import com.senac.SimpleJava.Graphics.Image;
+import com.senac.SimpleJava.Graphics.Point;
 
-public class Warrior {
+public class Warrior  {
 	
 	Image img;
 	
