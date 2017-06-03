@@ -7,10 +7,28 @@ import com.senac.SimpleJava.Graphics.GraphicApplication;
 import com.senac.SimpleJava.Graphics.Resolution;
 
 public class Labirinto extends GraphicApplication {
-
+	Room sala[] = new Room [31];
+	
+	
+	
 	@Override
 	protected void draw(Canvas canvas) {
-
+		int cont = 1;
+		canvas.drawImage(sala[cont].fundo, 0, 0);
+		
+		if(sala[cont].DoorEast != null){
+			canvas.drawImage(sala[cont].DoorEast.img, 590, 200);
+		}
+		if(sala[cont].DoorWest != null){
+			canvas.drawImage(sala[cont].DoorWest.img, -40, 200);
+		}
+		if(sala[cont].DoorNorth != null){
+			canvas.drawImage(sala[cont].DoorNorth.img, 270, 20);
+		}
+		if(sala[cont].DoorSouth != null){
+			canvas.drawImage(sala[cont].DoorSouth.img, 270, 350);
+		}
+		
 		
 	}
 	
@@ -34,7 +52,6 @@ public class Labirinto extends GraphicApplication {
 	//METODOS -----------------------------------------------------------------------------------------------------------
 	
 	public void carregaArquivo (){
-		Room sala[] = new Room [31];
 		String[] linha = new String[31];
 		Scanner scanner = null;
 		int i = 0;
