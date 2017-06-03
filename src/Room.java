@@ -6,6 +6,7 @@ public class Room {
 	
 	String room, east, west, north, south, down, up;
 	Door DoorEast, DoorWest, DoorNorth, DoorSouth, DoorDown, DoorUp;
+	Warrior warrior;
 	Image fundo;
 	
 	public Room ( String room, String east, String west, String north, String south, String down, String up){
@@ -16,33 +17,34 @@ public class Room {
 		this.south = south;
 		this.down = down;
 		this.up = up;
-		Exibe();
+		AddImg();
 		criaSala();
+		warrior = new Warrior();
 	}
 	
 	public void criaSala(){
 		if (east != null){
-			DoorEast = new Door();
+			DoorEast = new Door("east");
 		}
 		if (west != null){
-			DoorWest = new Door();
+			DoorWest = new Door("west");
 		}
 		if (north != null){
-			DoorNorth = new Door();
+			DoorNorth = new Door("north");
 		}
 		if (south != null){
-			DoorSouth = new Door();
+			DoorSouth = new Door("south");
 		}
 		if (down != null){
-			DoorDown = new Door();
+			DoorDown = new Door("down");
 		}
 		if (up != null){
-			DoorUp = new Door();
+			DoorUp = new Door("up");
 		}
 		
 	}
 	
-	public void Exibe(){
+	public void AddImg(){
 		try {
 			 this.fundo = new Image("img/mapa.png");
 		} catch (IOException e) {

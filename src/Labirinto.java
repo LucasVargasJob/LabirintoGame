@@ -13,20 +13,21 @@ public class Labirinto extends GraphicApplication {
 	
 	@Override
 	protected void draw(Canvas canvas) {
-		int cont = 1;
+		int cont = 8;
 		canvas.drawImage(sala[cont].fundo, 0, 0);
+		canvas.drawImage(sala[cont].warrior.img,200,220);
 		
 		if(sala[cont].DoorEast != null){
-			canvas.drawImage(sala[cont].DoorEast.img, 590, 200);
+			canvas.drawImage(sala[cont].DoorEast.img, 707, 250);
 		}
 		if(sala[cont].DoorWest != null){
-			canvas.drawImage(sala[cont].DoorWest.img, -40, 200);
+			canvas.drawImage(sala[cont].DoorWest.img, 10, 250);
 		}
 		if(sala[cont].DoorNorth != null){
-			canvas.drawImage(sala[cont].DoorNorth.img, 270, 20);
+			canvas.drawImage(sala[cont].DoorNorth.img, 350, 5);		
 		}
 		if(sala[cont].DoorSouth != null){
-			canvas.drawImage(sala[cont].DoorSouth.img, 270, 350);
+			canvas.drawImage(sala[cont].DoorSouth.img, 350, 510);
 		}
 		
 		
