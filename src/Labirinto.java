@@ -159,7 +159,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     }
     
     public void enemyPositionRandom(){
-		enemyX = rand(350,550);
+		enemyX = rand(300,550);
 		enemyY = rand(100, 400);
     }
 	
