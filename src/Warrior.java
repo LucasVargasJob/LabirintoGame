@@ -6,6 +6,8 @@ import com.senac.SimpleJava.Graphics.Point;
 public class Warrior  {
 	
 	Image img;
+	int x = 200;
+	int y = 200;
 	
 	public Warrior(){
 		AddImg();
@@ -19,6 +21,11 @@ public class Warrior  {
 		}
 		return img;
 	}
+	
+	public Point getPosition() {
+		return new Point((int)x,(int)y);
+	}
+
 
 
 }
