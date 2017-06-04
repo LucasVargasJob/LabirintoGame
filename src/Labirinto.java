@@ -11,8 +11,10 @@ import com.senac.SimpleJava.Graphics.events.MouseObserver;
 
 public class Labirinto extends GraphicApplication implements MouseObserver {
 	Room sala[] = new Room [31];
+	Warrior warrior = new Warrior();
 	int cont = 0;
 	int warriorX = 200, warriorY = 200;
+	int enemyX = 450, enemyY = 200;
 	int southX = 350, southY = 510;
 	int northX = 350, northY = 5;
 	int eastX = 707, eastY = 250;
@@ -23,21 +25,21 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		canvas.clear();
 		
 		canvas.drawImage(sala[cont].fundo, 0, 0);
-		canvas.drawImage(sala[cont].warrior.img,warriorX,warriorY);
-		canvas.drawImage(sala[cont].enemy.img, 500, 200);
-		canvas.putText(400, 200, 20, String.format("Sala "+sala[cont].room));
+		canvas.drawImage(warrior.img, warriorX, warriorY);
+		canvas.drawImage(sala[cont].enemy.img, enemyX, enemyY);
+		canvas.putText(100, 10, 28, String.format("Sala "+sala[cont].room));
 		
-		if(sala[cont].DoorEast != null){
-			canvas.drawImage(sala[cont].DoorEast.img, eastX, eastY);
+		if(sala[cont].doorEast != null){
+			canvas.drawImage(sala[cont].doorEast.img, eastX, eastY);
 		}
-		if(sala[cont].DoorWest != null){
-			canvas.drawImage(sala[cont].DoorWest.img, westX, westY);
+		if(sala[cont].doorWest != null){
+			canvas.drawImage(sala[cont].doorWest.img, westX, westY);
 		}
-		if(sala[cont].DoorNorth != null){
-			canvas.drawImage(sala[cont].DoorNorth.img, northX, northY);		
+		if(sala[cont].doorNorth != null){
+			canvas.drawImage(sala[cont].doorNorth.img, northX, northY);		
 		}
-		if(sala[cont].DoorSouth != null){
-			canvas.drawImage(sala[cont].DoorSouth.img, southX, southY);
+		if(sala[cont].doorSouth != null){
+			canvas.drawImage(sala[cont].doorSouth.img, southX, southY);
 		}
 		
 	}
@@ -68,26 +70,31 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			//Warrior
 			if(warriorX+60 > point.x && warriorX < point.x-20 && warriorY+90 > point.y && warriorY < point.y-20){
 				warriorX += 20;
+
 			}
 			//South
 			if(sala[cont].south != null && southX+90 > point.x  && southX <point.x-5 && southY+65 > point.y && southY < point.y+5){
 				cont = Integer.parseInt(sala[cont].south);
 				cont -=1;
+				enemyPositionRandom();
 			}
 			//North
 			if(sala[cont].north != null && northX+90 > point.x  && northX <point.x-5 && northY+65 > point.y && northY < point.y+5){
 				cont = Integer.parseInt(sala[cont].north);
 				cont -=1;
+				enemyPositionRandom();
 			}
 			//East
 			if(sala[cont].east != null && eastX+90 > point.x  && eastX <point.x+5 && eastY+90 > point.y && eastY < point.y-10){
 				cont = Integer.parseInt(sala[cont].east);
 				cont -=1;
+				enemyPositionRandom();
 			}
 			//East
 			if(sala[cont].west != null && westX+90 > point.x  && westX <point.x+5 && westY+90 > point.y && westY < point.y-10){
 				cont = Integer.parseInt(sala[cont].west);
 				cont -=1;
+				enemyPositionRandom();
 				
 			}
 
@@ -146,6 +153,15 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			i++;			
 		}
 	}
+	
+    public int rand(int Str, int End) {
+        return (int) Math.ceil(Math.random() * (End  - Str + 1)) - 1 + Str;
+    }
+    
+    public void enemyPositionRandom(){
+		enemyX = rand(350,550);
+		enemyY = rand(100, 400);
+    }
 	
 	
 }

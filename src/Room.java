@@ -5,8 +5,7 @@ import com.senac.SimpleJava.Graphics.Image;
 public class Room {
 	
 	String room, east, west, north, south, down, up;
-	Door DoorEast, DoorWest, DoorNorth, DoorSouth, DoorDown, DoorUp;
-	Warrior warrior;
+	Door doorEast, doorWest, doorNorth, doorSouth, doorDown, doorUp;
 	Enemy enemy;
 	Image fundo;
 	
@@ -20,30 +19,43 @@ public class Room {
 		this.up = up;
 		AddImg();
 		criaSala();
-		warrior = new Warrior();
-		enemy = new Enemy();
+		criaInimigo();
 	}
 	
 	public void criaSala(){
 		if (east != null){
-			DoorEast = new Door("east");
+			doorEast = new Door("east");
 		}
 		if (west != null){
-			DoorWest = new Door("west");
+			doorWest = new Door("west");
 		}
 		if (north != null){
-			DoorNorth = new Door("north");
+			doorNorth = new Door("north");
 		}
 		if (south != null){
-			DoorSouth = new Door("south");
+			doorSouth = new Door("south");
 		}
 		if (down != null){
-			DoorDown = new Door("down");
+			doorDown = new Door("down");
 		}
 		if (up != null){
-			DoorUp = new Door("up");
+			doorUp = new Door("up");
 		}
 		
+	}
+	
+	public void criaInimigo(){
+		int numb = (int) (Math.random() * 3);
+		
+		if (numb == 0){
+			this.enemy = new Enemy("orc");
+		}
+		if (numb == 1){
+			this.enemy = new Enemy("goblin");
+		}
+		if (numb == 2){
+			this.enemy = new Enemy("troll");
+		}
 	}
 	
 	public void AddImg(){

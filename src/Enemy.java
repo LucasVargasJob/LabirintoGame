@@ -7,16 +7,17 @@ public class Enemy {
 	Image img;
 
 	
-	public Enemy(){
-		AddImg();
+	public Enemy(String imgEnemy){
+		AddImg(imgEnemy);
 	}
 	
-	public Image AddImg(){
+	public Image AddImg(String imgEnemy){
 		try {
-			 this.img = new Image("img/orc.png");
+			 this.img = new Image("img/"+imgEnemy+".png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return img;
 	}
 }
+
