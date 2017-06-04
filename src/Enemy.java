@@ -1,24 +1,22 @@
 import java.io.IOException;
 
 import com.senac.SimpleJava.Graphics.Image;
-import com.senac.SimpleJava.Graphics.Point;
 
-public class Warrior  {
-	
+public class Enemy {
+
 	Image img;
 
 	
-	public Warrior(){
+	public Enemy(){
 		AddImg();
 	}
 	
 	public Image AddImg(){
 		try {
-			 this.img = new Image("img/warrior.png");
+			 this.img = new Image("img/orc.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return img;
 	}
-	
 }

@@ -7,6 +7,7 @@ public class Room {
 	String room, east, west, north, south, down, up;
 	Door DoorEast, DoorWest, DoorNorth, DoorSouth, DoorDown, DoorUp;
 	Warrior warrior;
+	Enemy enemy;
 	Image fundo;
 	
 	public Room ( String room, String east, String west, String north, String south, String down, String up){
@@ -20,6 +21,7 @@ public class Room {
 		AddImg();
 		criaSala();
 		warrior = new Warrior();
+		enemy = new Enemy();
 	}
 	
 	public void criaSala(){

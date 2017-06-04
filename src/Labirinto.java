@@ -24,6 +24,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		
 		canvas.drawImage(sala[cont].fundo, 0, 0);
 		canvas.drawImage(sala[cont].warrior.img,warriorX,warriorY);
+		canvas.drawImage(sala[cont].enemy.img, 500, 200);
 		canvas.putText(400, 200, 20, String.format("Sala "+sala[cont].room));
 		
 		if(sala[cont].DoorEast != null){
