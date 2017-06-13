@@ -6,7 +6,12 @@ import com.senac.SimpleJava.Graphics.Point;
 public class Warrior  {
 	
 	Image img;
-
+	int life = 20;
+	int damage = 2;
+	int chance = 75;
+	Weapon weapon;
+	Inventory inventory;
+	
 	
 	public Warrior(){
 		AddImg();
@@ -19,6 +24,10 @@ public class Warrior  {
 			e.printStackTrace();
 		}
 		return img;
+	}
+	
+	public void addWeapon(Weapon weapon){
+		this.weapon = weapon;
 	}
 	
 }
