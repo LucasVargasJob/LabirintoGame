@@ -58,8 +58,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		this.setFramesPerSecond(30);
 		carregaArquivo();
 		addMouseObserver(MouseEvent.CLICK, this);
-		
-		
+			
 	}
 
 	@Override
@@ -70,6 +69,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 	
 	//METODOS -----------------------------------------------------------------------------------------------------------
 	
+	//Metodo de eventos de mouse.
 	@Override
 	public void notify(MouseEvent event, int button, Point point) {
 		
@@ -118,13 +118,13 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			}
 			if(sala[cont].enemy != null & enemyX+90 > point.x && enemyX < point.x-5 && enemyY+90 > point.y && enemyY < point.y-10){
 				chanceAcertoWarrior();
-
 			}
 
 		}
 		
 	}
 	
+	//Metodo de carregar arquivo e criação do labirinto.
 	public void carregaArquivo (){
 		String[] linha = new String[31];
 		Scanner scanner = null;
@@ -177,15 +177,18 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		}
 	}
 	
+	//Metodo random.
     public int rand(int Str, int End) {
         return (int) Math.ceil(Math.random() * (End  - Str + 1)) - 1 + Str;
     }
     
+    //Metodo de trocar posição do inimigo.
     public void enemyPositionRandom(){
 		enemyX = rand(300,550);
 		enemyY = rand(100, 400);
     }
     
+    //Metodo de combate.
     public void chanceAcertoWarrior(){
     	int atack = rand(1,100);
     	if (atack <= warrior.chance){

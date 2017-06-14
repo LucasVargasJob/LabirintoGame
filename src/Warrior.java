@@ -9,7 +9,6 @@ public class Warrior  {
 	int life = 20;
 	int damage = 2;
 	int chance = 75;
-	Weapon weapon;
 	Inventory inventory;
 	
 	
@@ -26,8 +25,8 @@ public class Warrior  {
 		return img;
 	}
 	
-	public void addWeapon(Weapon weapon){
-		this.weapon = weapon;
+	public void addIten(){
+		
 	}
 	
 }
