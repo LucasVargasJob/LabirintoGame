@@ -7,6 +7,7 @@ public class Room {
 	String room, east, west, north, south, down, up;
 	Door doorEast, doorWest, doorNorth, doorSouth, doorDown, doorUp;
 	Enemy enemy;
+	Iten iten = null;
 	Image fundo;
 	
 	public Room ( String room, String east, String west, String north, String south, String down, String up){

@@ -15,6 +15,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 	int cont = 0;
 	int warriorX = 200, warriorY = 200;
 	int enemyX = 450, enemyY = 200;
+	int itenX = 300, itenY = 400;
 	int southX = 350, southY = 510;
 	int northX = 350, northY = 5;
 	int eastX = 707, eastY = 250;
@@ -27,7 +28,9 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		
 		canvas.drawImage(sala[cont].fundo, 0, 0);
 		canvas.drawImage(warrior.img, warriorX, warriorY);
-		
+		if(warrior.iten != null){
+			canvas.drawImage(warrior.iten.img, 690, 10);
+		}
 		canvas.putText(110, 10, 20, String.format(" "+sala[cont].room));
 		canvas.putText(230, 10, 20, String.format(" "+ warrior.life));
 		
@@ -35,7 +38,9 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			canvas.putText(enemyX+5,enemyY-20, 16, String.format("HP: "+ sala[cont].enemy.life));
 			canvas.drawImage(sala[cont].enemy.img, enemyX, enemyY);
 		}
-		
+		if(sala[cont].iten != null){
+			canvas.drawImage(sala[cont].iten.img, itenX, itenY);
+		}
 		if(sala[cont].doorEast != null){
 			canvas.drawImage(sala[cont].doorEast.img, eastX, eastY);
 		}
@@ -79,6 +84,16 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 				warriorX += 20;
 
 			}
+			//Enemy
+			if(sala[cont].enemy != null & enemyX+90 > point.x && enemyX < point.x-5 && enemyY+90 > point.y && enemyY < point.y-10){
+				chanceAcertoWarrior();
+			}
+			//Iten
+			if(sala[cont].iten != null & itenX+90 > point.x && itenX < point.x-5 && itenY+90 > point.y && itenY < point.y-10){
+				warrior.iten = sala[cont].iten;
+				sala[cont].iten = null;
+			}
+						
 			//South
 			if(sala[cont].south != null && southX+90 > point.x  && southX <point.x-5 && southY+65 > point.y && southY < point.y+5){
 				sala[cont].doorSouth.AddImg("southOpen");
@@ -113,11 +128,6 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 				cont -=1;
 				sala[cont].doorEast.AddImg("eastOpen");
 				enemyPositionRandom();
-				
-				
-			}
-			if(sala[cont].enemy != null & enemyX+90 > point.x && enemyX < point.x-5 && enemyY+90 > point.y && enemyY < point.y-10){
-				chanceAcertoWarrior();
 			}
 
 		}
@@ -193,14 +203,23 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     	int atack = rand(1,100);
     	if (atack <= warrior.chance){
     		 sala[cont].enemy.life -= warrior.damage;
-    		 if (sala[cont].enemy.life <= 0)
+    		 	if (sala[cont].enemy.life <= 0){
     			 sala[cont].enemy = null;
-    		 
+    			 sala[cont].iten = new Iten("key");
+    		 	}
     	}else{
     		enemyX += 20;
     		warrior.life -= sala[cont].enemy.damage;
     		if (warrior.life <= 0)
     			cont = -1;
+    	}
+    }
+    
+    public boolean abrirPorta(){
+    	if(warrior.iten.name == "key"){
+    		return true;
+    	}else{
+    		return false;
     	}
     }
 	

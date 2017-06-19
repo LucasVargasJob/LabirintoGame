@@ -5,6 +5,8 @@ import com.senac.SimpleJava.Graphics.Image;
 public class Door {
 	
 	Image img;
+	Iten iten;
+	boolean padlock = true;
 	
 	public Door(String imgDoor){
 		AddImg(imgDoor);
@@ -17,6 +19,16 @@ public class Door {
 			e.printStackTrace();
 		}
 		return img;
+	}
+	
+	public boolean openDoor(Iten iten){
+		if(iten.name == "key"){
+			this.padlock = false;
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }

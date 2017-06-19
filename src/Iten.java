@@ -11,6 +11,7 @@ public class Iten {
 	
 	public Iten(String iten){
 		addImg(iten);
+		addAttributes(iten);
 	}
 	
 	public Image addImg(String imgIten){
