@@ -97,8 +97,12 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			}
 			//Iten
 			if(sala[cont].iten != null & itenX+90 > point.x && itenX < point.x-5 && itenY+20 > point.y && itenY < point.y+5){
-				warrior.inventory.addIten(sala[cont].iten.name); 
-				sala[cont].iten = null;
+				if(warrior.inventory.full() == false){
+					warrior.inventory.addIten(sala[cont].iten.name); 
+					sala[cont].iten = null;
+				}else{
+					Console.println("Inventario lotado");
+				}
 			}
 			//Primeiro Iten do inventario.
 			if(warrior.inventory.iten[0] != null && 680+20 > point.x && 680 < point.x-5 && 6+25 > point.y && 6 < point.y+5){
