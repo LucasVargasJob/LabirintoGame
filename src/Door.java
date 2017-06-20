@@ -23,12 +23,11 @@ public class Door {
 	
 	public boolean openDoor(Iten iten){
 		if(iten.name == "key"){
-			this.padlock = false;
 			return true;
-		}
-		else{
+		}else{
 			return false;
 		}
 	}
+
 
 }

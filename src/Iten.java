@@ -25,7 +25,8 @@ public class Iten {
 	
 	public void addAttributes(String iten ){
 		if (iten == "key"){
-			this.name = iten;	
+			this.name = iten;
+			this.damage = 0;
 		}
 		if (iten == "dagger"){
 			this.name = iten;

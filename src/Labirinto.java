@@ -29,7 +29,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		canvas.drawImage(sala[cont].fundo, 0, 0);
 		canvas.drawImage(warrior.img, warriorX, warriorY);
 		if(warrior.iten != null){
-			canvas.drawImage(warrior.iten.img, 690, 10);
+			canvas.drawImage(warrior.iten.img, 680, 6);
 		}
 		canvas.putText(110, 10, 20, String.format(" "+sala[cont].room));
 		canvas.putText(230, 10, 20, String.format(" "+ warrior.life));
@@ -63,6 +63,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		this.setFramesPerSecond(30);
 		carregaArquivo();
 		addMouseObserver(MouseEvent.CLICK, this);
+		
 			
 	}
 
@@ -89,47 +90,76 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 				chanceAcertoWarrior();
 			}
 			//Iten
-			if(sala[cont].iten != null & itenX+90 > point.x && itenX < point.x-5 && itenY+90 > point.y && itenY < point.y-10){
+			if(sala[cont].iten != null & itenX+90 > point.x && itenX < point.x-5 && itenY+20 > point.y && itenY < point.y+5){
 				warrior.iten = sala[cont].iten;
 				sala[cont].iten = null;
 			}
 						
 			//South
 			if(sala[cont].south != null && southX+90 > point.x  && southX <point.x-5 && southY+65 > point.y && southY < point.y+5){
-				sala[cont].doorSouth.AddImg("southOpen");
-				cont = Integer.parseInt(sala[cont].south);
-				cont -=1;
-				sala[cont].doorNorth.AddImg("northOpen");
-				enemyPositionRandom();
-				
+				if (sala[cont].doorSouth.padlock == false || warrior.iten != null && sala[cont].doorSouth.openDoor(warrior.iten) == true){
+					sala[cont].doorSouth.AddImg("southOpen");
+					if (sala[cont].doorSouth.padlock != false){
+						warrior.iten = null;
+					}
+					sala[cont].doorSouth.padlock = false;
+					cont = Integer.parseInt(sala[cont].south);
+					cont -=1;
+					sala[cont].doorNorth.AddImg("northOpen");
+					sala[cont].doorNorth.padlock = false;
+			
+					enemyPositionRandom();
+				}else{}
 			}
+			
 			//North
 			if(sala[cont].north != null && northX+90 > point.x  && northX <point.x-5 && northY+65 > point.y && northY < point.y+5){
-				sala[cont].doorNorth.AddImg("northOpen");
-				cont = Integer.parseInt(sala[cont].north);
-				cont -=1;
-				sala[cont].doorSouth.AddImg("southOpen");
-				enemyPositionRandom();
+				if (sala[cont].doorNorth.padlock == false || warrior.iten != null && sala[cont].doorNorth.openDoor(warrior.iten) == true ){
+					sala[cont].doorNorth.AddImg("northOpen");
+					if (sala[cont].doorNorth.padlock != false){
+						warrior.iten = null;
+					}
+					sala[cont].doorNorth.padlock = false;
+					cont = Integer.parseInt(sala[cont].north);
+					cont -=1;
+					sala[cont].doorSouth.AddImg("southOpen");
+					sala[cont].doorSouth.padlock = false;
 				
+					enemyPositionRandom();
+				}else{}
 			}
 			//East
 			if(sala[cont].east != null && eastX+90 > point.x  && eastX <point.x+5 && eastY+90 > point.y && eastY < point.y-10){
-				sala[cont].doorEast.AddImg("eastOpen");
-				cont = Integer.parseInt(sala[cont].east);
-				cont -=1;
-				sala[cont].doorWest.AddImg("westOpen");
-				enemyPositionRandom();
-				
+				if (sala[cont].doorEast.padlock == false || warrior.iten != null && sala[cont].doorEast.openDoor(warrior.iten) == true){	
+					sala[cont].doorEast.AddImg("eastOpen");
+					if (sala[cont].doorEast.padlock != false){
+						warrior.iten = null;
+					}
+					sala[cont].doorEast.padlock = false;
+					cont = Integer.parseInt(sala[cont].east);
+					cont -=1;
+					sala[cont].doorWest.AddImg("westOpen");
+					sala[cont].doorWest.padlock = false;
+					
+					enemyPositionRandom();
+				}else{}
 			}
 			//West
 			if(sala[cont].west != null && westX+90 > point.x  && westX <point.x+5 && westY+90 > point.y && westY < point.y-10){
-				sala[cont].doorWest.AddImg("westOpen");
-				cont = Integer.parseInt(sala[cont].west);
-				cont -=1;
-				sala[cont].doorEast.AddImg("eastOpen");
-				enemyPositionRandom();
+				if (sala[cont].doorWest.padlock == false || warrior.iten != null && sala[cont].doorWest.openDoor(warrior.iten) == true){
+					sala[cont].doorWest.AddImg("westOpen");
+					if (sala[cont].doorWest.padlock != false){
+						warrior.iten = null;
+					}
+					sala[cont].doorWest.padlock = false;
+					cont = Integer.parseInt(sala[cont].west);
+					cont -=1;
+					sala[cont].doorEast.AddImg("eastOpen");
+					sala[cont].doorEast.padlock = false;
+					
+					enemyPositionRandom();
+				}else{}	
 			}
-
 		}
 		
 	}
