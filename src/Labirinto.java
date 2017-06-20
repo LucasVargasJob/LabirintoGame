@@ -20,7 +20,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 	int northX = 350, northY = 5;
 	int eastX = 707, eastY = 250;
 	int westX = 10, westY = 250;
-
+	
 	
 	@Override
 	protected void draw(Canvas canvas) {
@@ -28,9 +28,14 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		
 		canvas.drawImage(sala[cont].fundo, 0, 0);
 		canvas.drawImage(warrior.img, warriorX, warriorY);
-		if(warrior.iten != null){
-			canvas.drawImage(warrior.iten.img, 680, 6);
+		if(warrior.inventory.iten[0] != null){
+			canvas.drawImage(warrior.inventory.iten[0].img, 680, 6);
 		}
+		
+		if(warrior.inventory.iten[1] != null){
+			canvas.drawImage(warrior.inventory.iten[1].img, 712, 6);
+		}
+		
 		canvas.putText(110, 10, 20, String.format(" "+sala[cont].room));
 		canvas.putText(230, 10, 20, String.format(" "+ warrior.life));
 		
@@ -63,7 +68,6 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		this.setFramesPerSecond(30);
 		carregaArquivo();
 		addMouseObserver(MouseEvent.CLICK, this);
-		
 			
 	}
 
@@ -82,8 +86,10 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		if (event == MouseEvent.CLICK) {
 			//Warrior
 			if(warriorX+60 > point.x && warriorX < point.x-20 && warriorY+90 > point.y && warriorY < point.y-20){
-				warriorX += 20;
-
+				warrior.inventory.addIten("key");
+				warrior.inventory.addIten("dagger");
+				warrior.inventory.removeIten(0);
+				warrior.inventory.addIten("sword");
 			}
 			//Enemy
 			if(sala[cont].enemy != null & enemyX+90 > point.x && enemyX < point.x-5 && enemyY+90 > point.y && enemyY < point.y-10){
@@ -91,16 +97,16 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			}
 			//Iten
 			if(sala[cont].iten != null & itenX+90 > point.x && itenX < point.x-5 && itenY+20 > point.y && itenY < point.y+5){
-				warrior.iten = sala[cont].iten;
+				warrior.inventory.addIten(sala[cont].iten.name); 
 				sala[cont].iten = null;
 			}
 						
 			//South
 			if(sala[cont].south != null && southX+90 > point.x  && southX <point.x-5 && southY+65 > point.y && southY < point.y+5){
-				if (sala[cont].doorSouth.padlock == false || warrior.iten != null && sala[cont].doorSouth.openDoor(warrior.iten) == true){
+				if (sala[cont].doorSouth.padlock == false || warrior.inventory.vefiricaKey() == true){
 					sala[cont].doorSouth.AddImg("southOpen");
 					if (sala[cont].doorSouth.padlock != false){
-						warrior.iten = null;
+						warrior.inventory.removeKey();
 					}
 					sala[cont].doorSouth.padlock = false;
 					cont = Integer.parseInt(sala[cont].south);
@@ -114,10 +120,10 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			
 			//North
 			if(sala[cont].north != null && northX+90 > point.x  && northX <point.x-5 && northY+65 > point.y && northY < point.y+5){
-				if (sala[cont].doorNorth.padlock == false || warrior.iten != null && sala[cont].doorNorth.openDoor(warrior.iten) == true ){
+				if (sala[cont].doorNorth.padlock == false || warrior.inventory.vefiricaKey() == true){
 					sala[cont].doorNorth.AddImg("northOpen");
 					if (sala[cont].doorNorth.padlock != false){
-						warrior.iten = null;
+						warrior.inventory.removeKey();
 					}
 					sala[cont].doorNorth.padlock = false;
 					cont = Integer.parseInt(sala[cont].north);
@@ -130,10 +136,10 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			}
 			//East
 			if(sala[cont].east != null && eastX+90 > point.x  && eastX <point.x+5 && eastY+90 > point.y && eastY < point.y-10){
-				if (sala[cont].doorEast.padlock == false || warrior.iten != null && sala[cont].doorEast.openDoor(warrior.iten) == true){	
+				if (sala[cont].doorEast.padlock == false || warrior.inventory.vefiricaKey() == true){	
 					sala[cont].doorEast.AddImg("eastOpen");
 					if (sala[cont].doorEast.padlock != false){
-						warrior.iten = null;
+						warrior.inventory.removeKey();
 					}
 					sala[cont].doorEast.padlock = false;
 					cont = Integer.parseInt(sala[cont].east);
@@ -146,10 +152,10 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 			}
 			//West
 			if(sala[cont].west != null && westX+90 > point.x  && westX <point.x+5 && westY+90 > point.y && westY < point.y-10){
-				if (sala[cont].doorWest.padlock == false || warrior.iten != null && sala[cont].doorWest.openDoor(warrior.iten) == true){
+				if (sala[cont].doorWest.padlock == false || warrior.inventory.vefiricaKey() == true){
 					sala[cont].doorWest.AddImg("westOpen");
 					if (sala[cont].doorWest.padlock != false){
-						warrior.iten = null;
+						warrior.inventory.removeKey();
 					}
 					sala[cont].doorWest.padlock = false;
 					cont = Integer.parseInt(sala[cont].west);
@@ -245,13 +251,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     	}
     }
     
-    public boolean abrirPorta(){
-    	if(warrior.iten.name == "key"){
-    		return true;
-    	}else{
-    		return false;
-    	}
-    }
+
 	
 	
 }

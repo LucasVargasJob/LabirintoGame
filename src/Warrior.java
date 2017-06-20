@@ -9,8 +9,7 @@ public class Warrior  {
 	int life = 20;
 	int damage = 2;
 	int chance = 75;
-	Iten iten;
-	Inventory inventory;
+	Inventory inventory = new Inventory();
 	
 	
 	public Warrior(){
