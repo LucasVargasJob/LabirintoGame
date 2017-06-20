@@ -30,14 +30,23 @@ public class Inventory {
 	}
 	
 	public void removeKey(){
-		if (iten[0].name == "key"){
+		if (iten[0] != null && iten[0].name == "key"){
 			iten[0] = null;
 		}else{
 			iten[1] = null;
 		}
+		
 	}
 	
-	
+	public boolean verificaShield(){
+		if (iten [0] != null && iten[0].name =="shield"){
+			return true;
+		}
+		if (iten [1] != null && iten[1].name =="shield"){
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean full(){
 		if (iten[0] == null || iten[1] == null){

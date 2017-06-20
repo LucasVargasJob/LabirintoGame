@@ -25,8 +25,18 @@ public class Warrior  {
 		return img;
 	}
 	
-	public void addIten(){
-		
+	public void atribuiAtackAndChance(){
+    	for(int a=0;a<=1;a++){
+    		if(inventory.iten[a] != null){
+    			this.damage += inventory.iten[a].damage;
+    			this.chance += inventory.iten[a].chance;
+    		}
+    	}
+    }
+	
+	public void resetAtributtos(){
+		this.chance = 75;
+		this.damage = 2;
 	}
 	
 }

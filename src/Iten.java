@@ -6,8 +6,9 @@ public class Iten {
 
 	Image img;
 	String name;
-	double damage;
-	double armor;
+	double damage = 0;
+	double armor = 0;
+	double chance = 0;
 	
 	public Iten(String iten){
 		addImg(iten);
@@ -26,7 +27,6 @@ public class Iten {
 	public void addAttributes(String iten ){
 		if (iten == "key"){
 			this.name = iten;
-			this.damage = 0;
 		}
 		if (iten == "dagger"){
 			this.name = iten;
@@ -35,18 +35,20 @@ public class Iten {
 		if (iten == "knife"){
 			this.name = iten;
 			this.damage = 2;
+			this.chance = 5;
 		}
 		if (iten == "sword"){
 			this.name = iten;
 			this.damage = 3;
+			this.chance = 10;
 		}
 		if (iten == "longSword"){
 			this.name = iten;
 			this.damage = 5;
+			this.chance = -10;
 		}
 		if (iten == "shield"){
 			this.name = iten;
-			this.armor = 3;
 		}
 	}
 	

@@ -86,19 +86,27 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		if (event == MouseEvent.CLICK) {
 			//Warrior
 			if(warriorX+60 > point.x && warriorX < point.x-20 && warriorY+90 > point.y && warriorY < point.y-20){
-				warrior.inventory.addIten("key");
-				warrior.inventory.addIten("dagger");
-				warrior.inventory.removeIten(0);
-				warrior.inventory.addIten("sword");
+				warrior.inventory.addIten("shield");
 			}
 			//Enemy
 			if(sala[cont].enemy != null & enemyX+90 > point.x && enemyX < point.x-5 && enemyY+90 > point.y && enemyY < point.y-10){
 				chanceAcertoWarrior();
+				if(sala[cont].enemy != null){
+					chanceAcertoEnemy();
+				}
 			}
 			//Iten
 			if(sala[cont].iten != null & itenX+90 > point.x && itenX < point.x-5 && itenY+20 > point.y && itenY < point.y+5){
 				warrior.inventory.addIten(sala[cont].iten.name); 
 				sala[cont].iten = null;
+			}
+			//Primeiro Iten do inventario.
+			if(warrior.inventory.iten[0] != null && 680+20 > point.x && 680 < point.x-5 && 6+25 > point.y && 6 < point.y+5){
+				warrior.inventory.removeIten(0);
+			}
+			//Segundo Iten do inventario.
+			if(warrior.inventory.iten[1] != null && 712+20 > point.x && 712 < point.x-5 && 6+25 > point.y && 6 < point.y+5){
+				warrior.inventory.removeIten(1);
 			}
 						
 			//South
@@ -113,7 +121,6 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 					cont -=1;
 					sala[cont].doorNorth.AddImg("northOpen");
 					sala[cont].doorNorth.padlock = false;
-			
 					enemyPositionRandom();
 				}else{}
 			}
@@ -130,7 +137,6 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 					cont -=1;
 					sala[cont].doorSouth.AddImg("southOpen");
 					sala[cont].doorSouth.padlock = false;
-				
 					enemyPositionRandom();
 				}else{}
 			}
@@ -146,7 +152,6 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 					cont -=1;
 					sala[cont].doorWest.AddImg("westOpen");
 					sala[cont].doorWest.padlock = false;
-					
 					enemyPositionRandom();
 				}else{}
 			}
@@ -162,7 +167,6 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 					cont -=1;
 					sala[cont].doorEast.AddImg("eastOpen");
 					sala[cont].doorEast.padlock = false;
-					
 					enemyPositionRandom();
 				}else{}	
 			}
@@ -236,8 +240,9 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     
     //Metodo de combate.
     public void chanceAcertoWarrior(){
-    	int atack = rand(1,100);
-    	if (atack <= warrior.chance){
+    	warrior.atribuiAtackAndChance();
+    	int atackWarrior = rand(1,100);
+    	if (sala[cont].enemy != null && atackWarrior <= warrior.chance){
     		 sala[cont].enemy.life -= warrior.damage;
     		 	if (sala[cont].enemy.life <= 0){
     			 sala[cont].enemy = null;
@@ -245,13 +250,25 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     		 	}
     	}else{
     		enemyX += 20;
+    	}
+    	warrior.resetAtributtos();
+    }
+    
+    public void chanceAcertoEnemy(){
+    	int atackEnemy = rand(1,100);
+    	int temp = sala[cont].enemy.chance;
+    	if (warrior.inventory.verificaShield() == true){
+    		sala[cont].enemy.chance -= 25;
+    	}
+    	if (atackEnemy <= sala[cont].enemy.chance){
     		warrior.life -= sala[cont].enemy.damage;
     		if (warrior.life <= 0)
     			cont = -1;
+    	}else{
+    		warriorX += 20;
     	}
+    	sala[cont].enemy.chance = temp;
     }
     
-
-	
 	
 }
