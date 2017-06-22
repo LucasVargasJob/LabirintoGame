@@ -10,6 +10,7 @@ public class Warrior  {
 	int damage = 2;
 	int chance = 75;
 	Inventory inventory = new Inventory();
+	Armor armor;
 	
 	
 	public Warrior(){

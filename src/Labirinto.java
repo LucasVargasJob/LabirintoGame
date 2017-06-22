@@ -12,7 +12,7 @@ import com.senac.SimpleJava.Graphics.events.MouseObserver;
 public class Labirinto extends GraphicApplication implements MouseObserver {
 	Room sala[] = new Room [31];
 	Warrior warrior = new Warrior();
-	int cont = 0;
+	int cont = rand(1,30);;
 	int warriorX = 200, warriorY = 200;
 	int enemyX = 450, enemyY = 200;
 	int itenX = 300, itenY = 400;
@@ -21,30 +21,37 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 	int eastX = 707, eastY = 250;
 	int westX = 10, westY = 250;
 	
-	
+	/* Adicionar Armadura e imagem para quando o warrior morrer ou quando ele chegar na sala 0 (-1) */
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
 		
 		canvas.drawImage(sala[cont].fundo, 0, 0);
 		canvas.drawImage(warrior.img, warriorX, warriorY);
+		
+		if(warrior.armor != null){
+			canvas.drawImage(warrior.armor.img, 600, 4);
+		}
 		if(warrior.inventory.iten[0] != null){
 			canvas.drawImage(warrior.inventory.iten[0].img, 680, 6);
 		}
-		
 		if(warrior.inventory.iten[1] != null){
 			canvas.drawImage(warrior.inventory.iten[1].img, 712, 6);
 		}
-		
 		canvas.putText(110, 10, 20, String.format(" "+sala[cont].room));
 		canvas.putText(230, 10, 20, String.format(" "+ warrior.life));
-		
 		if(sala[cont].enemy != null){
 			canvas.putText(enemyX+5,enemyY-20, 16, String.format("HP: "+ sala[cont].enemy.life));
 			canvas.drawImage(sala[cont].enemy.img, enemyX, enemyY);
 		}
 		if(sala[cont].iten != null){
 			canvas.drawImage(sala[cont].iten.img, itenX, itenY);
+		}
+		if(sala[cont].key != null){
+			canvas.drawImage(sala[cont].key.img, itenX+30, itenY+20);
+		}
+		if(sala[cont].armor != null){
+			canvas.drawImage(sala[cont].armor.img, itenX+60, itenY+50);
 		}
 		if(sala[cont].doorEast != null){
 			canvas.drawImage(sala[cont].doorEast.img, eastX, eastY);
@@ -67,8 +74,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		this.setResolution(res);
 		this.setFramesPerSecond(30);
 		carregaArquivo();
-		addMouseObserver(MouseEvent.CLICK, this);
-			
+		addMouseObserver(MouseEvent.CLICK, this);	
 	}
 
 	@Override
@@ -86,7 +92,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		if (event == MouseEvent.CLICK) {
 			//Warrior
 			if(warriorX+60 > point.x && warriorX < point.x-20 && warriorY+90 > point.y && warriorY < point.y-20){
-				warrior.inventory.addIten("shield");
+
 			}
 			//Enemy
 			if(sala[cont].enemy != null & enemyX+90 > point.x && enemyX < point.x-5 && enemyY+90 > point.y && enemyY < point.y-10){
@@ -104,13 +110,52 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 					Console.println("Inventario lotado");
 				}
 			}
+			//Key
+			if(sala[cont].key != null & itenX+110 > point.x && itenX+30 < point.x-5 && itenY+40 > point.y && itenY+20 < point.y+5){
+				if(warrior.inventory.full() == false){
+					warrior.inventory.addIten(sala[cont].key.name); 
+					sala[cont].key = null;
+				}else{
+					Console.println("Inventario lotado");
+				}
+			}
+			//armor
+			if(sala[cont].armor != null & itenX+140 > point.x && itenX+60 < point.x-5 && itenY+70 > point.y && itenY+50 < point.y+5){
+				if(warrior.armor == null){
+					warrior.armor = sala[cont].armor; 
+					sala[cont].armor = null;
+				}else{
+					Console.println("Armadura já equipada");
+				}
+			}
 			//Primeiro Iten do inventario.
 			if(warrior.inventory.iten[0] != null && 680+20 > point.x && 680 < point.x-5 && 6+25 > point.y && 6 < point.y+5){
+				if(sala[cont].iten == null){
+					sala[cont].iten = warrior.inventory.iten[0];
+				} else if(sala[cont].key == null){
+					sala[cont].key = warrior.inventory.iten[0];
+				}
 				warrior.inventory.removeIten(0);
+				
 			}
 			//Segundo Iten do inventario.
 			if(warrior.inventory.iten[1] != null && 712+20 > point.x && 712 < point.x-5 && 6+25 > point.y && 6 < point.y+5){
+				if(sala[cont].iten == null){
+					sala[cont].iten = warrior.inventory.iten[1];
+				} else if(sala[cont].key == null){
+					sala[cont].key = warrior.inventory.iten[1];
+				}
 				warrior.inventory.removeIten(1);
+			}
+			
+			//Armadura inventario.
+			if(warrior.armor != null && 605+20 > point.x && 605 < point.x-5 && 6+25 > point.y && 6 < point.y+5){
+				if(sala[cont].armor == null){
+					sala[cont].armor = warrior.armor;
+					warrior.armor = null;
+				}else{
+					warrior.armor = null;
+				}
 			}
 						
 			//South
@@ -175,7 +220,6 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 				}else{}	
 			}
 		}
-		
 	}
 	
 	//Metodo de carregar arquivo e criação do labirinto.
@@ -242,7 +286,7 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
 		enemyY = rand(100, 400);
     }
     
-    //Metodo de combate.
+    //Metodo de combate do Warrior.
     public void chanceAcertoWarrior(){
     	warrior.atribuiAtackAndChance();
     	int atackWarrior = rand(1,100);
@@ -250,14 +294,14 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     		 sala[cont].enemy.life -= warrior.damage;
     		 	if (sala[cont].enemy.life <= 0){
     			 sala[cont].enemy = null;
-    			 sala[cont].iten = new Iten("key");
+    			 sala[cont].key = new Iten("key");
     		 	}
     	}else{
     		enemyX += 20;
     	}
     	warrior.resetAtributtos();
     }
-    
+  //Metodo de combate do Enemy.
     public void chanceAcertoEnemy(){
     	int atackEnemy = rand(1,100);
     	int temp = sala[cont].enemy.chance;
@@ -265,7 +309,15 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     		sala[cont].enemy.chance -= 25;
     	}
     	if (atackEnemy <= sala[cont].enemy.chance){
-    		warrior.life -= sala[cont].enemy.damage;
+    		if (warrior.armor != null){
+    			int dano = (int) (sala[cont].enemy.damage - warrior.armor.armor);
+    			if (dano >= 0){
+    			warrior.life -= dano;
+    			}
+    		}else{
+    			warrior.life -= sala[cont].enemy.damage;
+    		}
+    		
     		if (warrior.life <= 0)
     			cont = -1;
     	}else{
@@ -273,6 +325,9 @@ public class Labirinto extends GraphicApplication implements MouseObserver {
     	}
     	sala[cont].enemy.chance = temp;
     }
+    
+
+    
     
 	
 }

@@ -7,7 +7,9 @@ public class Room {
 	String room, east, west, north, south, down, up;
 	Door doorEast, doorWest, doorNorth, doorSouth, doorDown, doorUp;
 	Enemy enemy;
+	Iten key = null;
 	Iten iten = null;
+	Armor armor = null;
 	Image fundo;
 	
 	public Room ( String room, String east, String west, String north, String south, String down, String up){
@@ -21,6 +23,7 @@ public class Room {
 		AddImg();
 		criaSala();
 		criaInimigo();
+		randomMapIten();
 	}
 	
 	public void criaSala(){
@@ -56,6 +59,54 @@ public class Room {
 		}
 		if (numb == 2){
 			this.enemy = new Enemy("troll");
+		}
+	}
+	
+	public void randomMapIten(){
+		int numb = (int) (Math.random() * 2);
+		
+		if (numb == 0 ){
+			criaIten();
+		}
+		if (numb == 1){
+			
+		}
+	}
+	
+	public void randomArmor(){
+		int numb = (int) (Math.random() * 3);
+		
+		if (numb == 0){
+			this.armor = new Armor("couro");
+		}
+		if (numb == 1){
+			this.armor = new Armor("metal");
+		}
+		if (numb == 2){
+			this.armor = new Armor("mithril");
+		}
+	}
+	
+	public void criaIten(){
+		int numb = (int) (Math.random() * 6);
+		
+		if (numb == 0){
+			this.iten = new Iten("dagger");
+		}
+		if (numb == 1){
+			this.iten = new Iten("shield");
+		}
+		if (numb == 2){
+			randomArmor();
+		}
+		if (numb == 3){
+			this.iten = new Iten("longSword");
+		}
+		if (numb == 4){
+			this.iten = new Iten("knife");
+		}
+		if (numb == 5){
+			this.iten = new Iten("sword");
 		}
 	}
 	
